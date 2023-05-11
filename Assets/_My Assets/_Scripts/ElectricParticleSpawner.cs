@@ -53,6 +53,8 @@ public class ElectricParticleSpawner : MonoBehaviour
             return;
 
         ParticleSpawner();
+        OVRInput.SetControllerVibration(.5f, .4f, OVRInput.Controller.RTouch);
+        OVRInput.SetControllerVibration(.5f, .4f, OVRInput.Controller.LTouch);
     }
 
     private void ParticleSpawner ()

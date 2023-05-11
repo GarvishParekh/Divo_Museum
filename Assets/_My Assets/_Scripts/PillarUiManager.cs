@@ -1,23 +1,34 @@
-using UnityEditor;
 using UnityEngine;
 
 public class PillarUiManager : MonoBehaviour
 {
+    UiManager uiManager;
     [SerializeField] string playerTag;
     [SerializeField] Animator pillarUiAnimation;
+    [SerializeField] Animator pannelUiAnimation;
 
-    [Header("Animation tag")]
+    [Header("Buttton animation tag")]
     [SerializeField] string growTag;
     [SerializeField] string shrinkTag;
+
+    [Space]
+    [Header("Pannel animation tag")]
+    [SerializeField] string startTag;
 
     [Header("Pannels")]
     [SerializeField] GameObject questionPannel;
     [SerializeField] GameObject informationPannel;
 
+    GameObject mainpanel;
+
     private void Start()
     {
         questionPannel.SetActive(false);
         informationPannel.SetActive(false);
+
+        // get all components
+        uiManager = UiManager.instance;
+        mainpanel = pannelUiAnimation.GetComponent<Transform>().gameObject;
     }
 
     private void OnTriggerEnter(Collider info)
@@ -34,7 +45,15 @@ public class PillarUiManager : MonoBehaviour
 
     public void B_Open(GameObject desireObject)
     {
+        // close all the local panels
         CloseAllPanel();
+
+        // close if any panel is open
+        uiManager.CloseAllpanels();
+        mainpanel.SetActive(true); 
+        
+        // triggers an starting animation
+        pannelUiAnimation.SetTrigger(startTag);
         desireObject.SetActive(true);
     }
 
